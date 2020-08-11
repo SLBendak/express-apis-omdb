@@ -6,6 +6,9 @@ const axios = require('axios')
 
 let API_KEY = process.env.API_KEY
 
+// var db = require('./models');
+const { response } = require('express');
+
 // Sets EJS as the view engine
 app.set('view engine', 'ejs');
 // Specifies the location of the static assets folder
@@ -14,6 +17,8 @@ app.use(express.static('static'));
 app.use(express.urlencoded({ extended: false }));
 // Enables EJS Layouts middleware
 app.use(ejsLayouts);
+
+app.use('/faves', require('./routes/faves'));
 
 // Adds some logging to each request
 app.use(require('morgan')('dev'));
@@ -39,7 +44,7 @@ app.get('/results', (req, res) => {
       // render home with the data
   })
   .catch(err => {
-      console.log(err)
+      console.log("you done goofed", err)
   })
 })
 
@@ -63,8 +68,28 @@ app.get('/movies/:movie_id', (req, res) => {
 
 })
 
+// app.post("/details", (req, res) => {
+//   db.favs.findOrCreate({
+//     where: {
+//       Title: req.body.Title,
+//     }
+//   })
+//   .then((response) => {
+//     res.redirect("/faves");
+
+//   })
+//   .catch(error => {
+//     console.log('error: ', error)
+//   })
+// })
+
 // The app.listen function returns a server handle
-var server = app.listen(process.env.PORT || 3000);
+const port = process.env.PORT || 3000;
+
+function listenForPort(){
+  console.log(`Server is running on port ${port}`)
+}
+const server = app.listen(port);
 
 // We can export this server to other servers like this
 module.exports = server;

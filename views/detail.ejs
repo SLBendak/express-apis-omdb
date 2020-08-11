@@ -5,7 +5,6 @@
 
 
 
-
 <p>
     <div>Rated: <%= movies.Rated %></div>
     <br>
@@ -24,3 +23,8 @@
     <br>
     <div>IMDB Rating: <%= movies.imdbRating%></div>
 </p>
+<form method="POST" action="/faves">
+    <input id='title' hidden type="text" name="title" value="<%= movies.title %>">
+    <input id='imdbid' hidden type="text" name="imdbid" value="<%= movies.imdbID %>">
+    <button type="submit" name="title">Add to favorites</button>
+</form>
